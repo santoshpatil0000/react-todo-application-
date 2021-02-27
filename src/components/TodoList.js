@@ -7,6 +7,7 @@ class TodoList extends Component {
             <div>
                 <h3>Hello todo list</h3>
                 <TodoItem/>
+                
             </div>
         )
     }
