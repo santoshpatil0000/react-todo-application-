@@ -2,56 +2,69 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import uuid from "react-uuid";
+import React, { Component } from "react";
 
-function App() {
-  const state = {
-    items: [
-      { id: 1, title: "wake up" },
-      { id: 2, title: "breakfast" },
-    ],
+class App extends Component {
+  state = {
+    items: [],
     id: uuid(),
     item: "",
     editItem: false,
   };
-  const handleChange = (e) => {
-    console.log("handle change");
+
+  handleChange = (e) => {
+    this.setState({
+      item: e.target.value,
+    });
   };
-  const handleSubmit = (e) => {
-    console.log("handle submit");
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const newItems = {
+      id: this.state.id,
+      title: this.state.item,
+    };
+    const updatedItems = [...this.state.items, newItems];
+    this.setState({
+      items: updatedItems,
+      item: "",
+      id: uuid(),
+      editItem: false,
+    }, () => console.log(this.state));
   };
-  const clearList = () => {
+  clearList = () => {
     console.log("clear list");
   };
-  const handleDelete = (id) => {
+  handleDelete = (id) => {
     console.log(`handle delete ${id}`);
   };
-  const handleEdit = (id) => {
+  handleEdit = (id) => {
     console.log(`handle edit ${id}`);
   };
-  return (
-    <div>
-      {console.log(state)}
-      <div className="container">
-        <div className="row">
-          <div className="col-10 mx-auto col-md-8 mt-5">
-            <h3 className="text-capitalize text-center">todo input</h3>
-            <TodoInput
-              item={state.item}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              editItem={state.editItem}
-            />
-            <TodoList
-              items={state.items}
-              clearList={clearList}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-            />
+  render() {
+      return (
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-10 mx-auto col-md-8 mt-5">
+              <h3 className="text-capitalize text-center">todo input</h3>
+              <TodoInput
+                item={this.state.item}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                editItem={this.state.editItem}
+              />
+              <TodoList
+                items={this.state.items}
+                clearList={this.clearList}
+                handleDelete={this.handleDelete}
+                handleEdit={this.handleEdit}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
