@@ -41,7 +41,12 @@ function App() {
               handleSubmit={handleSubmit}
               editItem={state.editItem}
             />
-            <TodoList items={state.items} clearList={clearList} handleDelete={handleDelete} handleEdit={handleEdit} />
+            <TodoList
+              items={state.items}
+              clearList={clearList}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
           </div>
         </div>
       </div>
